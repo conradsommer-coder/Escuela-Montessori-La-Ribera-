@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Open+Sans:wght@400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+  --font-serif: "Libre Baskerville", serif;
+  
+  --color-montessori-green: #1E7A59;
+  --color-montessori-red: #D64545;
+  --color-montessori-blue: #355C9A;
+  --color-montessori-ivory: #FAF9F6;
+  --color-montessori-grey: #4A4A4A;
+  --color-montessori-line: #E5E5E5;
+  --color-montessori-yellow: #E9B44C;
+  --color-montessori-purple: #6B4E71;
+}
+
+@layer base {
+  body {
+    @apply bg-montessori-ivory text-montessori-grey font-sans antialiased relative;
+    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  }
+  
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: rgba(255, 245, 225, 0.03);
+    z-index: 9999;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold text-montessori-green;
+  }
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.montessori-beads div {
+  flex: 1;
+  height: 100%;
+}
+
+.bg-m-red { background-color: #D64545; }
+.bg-m-blue { background-color: #355C9A; }
+.bg-m-green { background-color: #1E7A59; }
+.bg-m-yellow { background-color: #E9B44C; }
+.bg-m-purple { background-color: #6B4E71; }
+
+.blob-bg {
+  position: absolute;
+  z-index: -1;
+  filter: blur(80px);
+  opacity: 0.12;
+  border-radius: 50%;
+}
+
+.rounded-montessori {
+  border-radius: 40px;
+}
