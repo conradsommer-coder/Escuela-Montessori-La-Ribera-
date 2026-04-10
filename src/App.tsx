@@ -23,21 +23,27 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const MontessoriSeparator = () => (
   <div className="montessori-beads flex h-1.5 w-full overflow-hidden my-12">
-    <div className="bg-m-red" />
-    <div className="bg-m-blue" />
-    <div className="bg-m-green" />
-    <div className="bg-m-yellow" />
-    <div className="bg-m-purple" />
-    <div className="bg-m-red" />
-    <div className="bg-m-blue" />
-    <div className="bg-m-green" />
-    <div className="bg-m-yellow" />
-    <div className="bg-m-purple" />
-    <div className="bg-m-red" />
-    <div className="bg-m-blue" />
-    <div className="bg-m-green" />
-    <div className="bg-m-yellow" />
-    <div className="bg-m-purple" />
+    {[...Array(20)].map((_, i) => (
+      <motion.div 
+        key={i}
+        animate={{ 
+          opacity: [0.6, 1, 0.6],
+          scale: [1, 1.1, 1]
+        }}
+        transition={{ 
+          duration: 2, 
+          repeat: Infinity, 
+          delay: i * 0.1,
+          ease: "easeInOut"
+        }}
+        className={`flex-1 ${
+          i % 5 === 0 ? 'bg-m-red' : 
+          i % 5 === 1 ? 'bg-m-blue' : 
+          i % 5 === 2 ? 'bg-m-green' : 
+          i % 5 === 3 ? 'bg-m-yellow' : 'bg-m-purple'
+        }`} 
+      />
+    ))}
   </div>
 );
 
@@ -46,9 +52,26 @@ const SectionTitle = ({ title, subtitle, centered = true }: { title: string; sub
     <h2 className="text-4xl md:text-5xl mb-6 font-display text-montessori-green tracking-tight">{title}</h2>
     {subtitle && <p className="text-xl text-montessori-grey max-w-3xl mx-auto leading-relaxed font-serif italic opacity-80">{subtitle}</p>}
     <div className={`mt-6 flex gap-2 ${centered ? 'justify-center' : ''}`}>
-      <div className="w-2 h-2 bg-montessori-red rounded-full" />
-      <div className="w-2 h-2 bg-montessori-blue rounded-full" />
-      <div className="w-2 h-2 bg-montessori-yellow rounded-full" />
+      {[
+        { color: 'bg-montessori-red', delay: 0 },
+        { color: 'bg-montessori-blue', delay: 0.2 },
+        { color: 'bg-montessori-yellow', delay: 0.4 }
+      ].map((dot, i) => (
+        <motion.div 
+          key={i}
+          animate={{ 
+            y: [0, -6, 0],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            delay: dot.delay,
+            ease: "easeInOut"
+          }}
+          className={`w-2.5 h-2.5 ${dot.color} rounded-full`} 
+        />
+      ))}
     </div>
   </div>
 );
@@ -74,10 +97,28 @@ const WarmOverlay = () => (
 
 const DecorativeBeads = ({ className }: { className?: string }) => (
   <div className={`absolute flex gap-2 ${className}`}>
-    <div className="w-3 h-3 bg-montessori-red rounded-full opacity-40" />
-    <div className="w-3 h-3 bg-montessori-blue rounded-full opacity-40" />
-    <div className="w-3 h-3 bg-montessori-yellow rounded-full opacity-40" />
-    <div className="w-3 h-3 bg-montessori-green rounded-full opacity-40" />
+    {[
+      { color: 'bg-montessori-red', delay: 0 },
+      { color: 'bg-montessori-blue', delay: 0.3 },
+      { color: 'bg-montessori-yellow', delay: 0.6 },
+      { color: 'bg-montessori-green', delay: 0.9 }
+    ].map((dot, i) => (
+      <motion.div 
+        key={i}
+        animate={{ 
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.6, 0.3],
+          y: [0, -4, 0]
+        }}
+        transition={{ 
+          duration: 3, 
+          repeat: Infinity, 
+          delay: dot.delay,
+          ease: "easeInOut"
+        }}
+        className={`w-3 h-3 ${dot.color} rounded-full`} 
+      />
+    ))}
   </div>
 );
 
@@ -86,16 +127,40 @@ const DecorativeBeads = ({ className }: { className?: string }) => (
 const Home = ({ setPage }: { setPage: (p: string) => void }) => (
   <div className="space-y-24 pb-24 relative overflow-hidden bg-montessori-ivory/30">
     {/* Background Blobs for Warmth */}
-    <div className="blob-bg w-[600px] h-[600px] bg-montessori-yellow/20 top-[-10%] left-[-10%]" />
-    <div className="blob-bg w-[500px] h-[500px] bg-montessori-red/10 top-[20%] right-[-15%]" />
-    <div className="blob-bg w-[400px] h-[400px] bg-montessori-blue/10 bottom-[10%] left-[5%]" />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.1, 1],
+        x: [0, 20, 0],
+        y: [0, 30, 0]
+      }}
+      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      className="blob-bg w-[600px] h-[600px] bg-montessori-yellow/20 top-[-10%] left-[-10%]" 
+    />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.2, 1],
+        x: [0, -30, 0],
+        y: [0, -20, 0]
+      }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      className="blob-bg w-[500px] h-[500px] bg-montessori-red/10 top-[20%] right-[-15%]" 
+    />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.15, 1],
+        x: [0, 40, 0],
+        y: [0, -40, 0]
+      }}
+      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      className="blob-bg w-[400px] h-[400px] bg-montessori-blue/10 bottom-[10%] left-[5%]" 
+    />
 
     {/* Hero Section */}
     <section className="relative min-h-[95vh] flex items-center overflow-hidden pt-20">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-montessori-ivory/60 via-montessori-ivory/20 to-montessori-ivory/80 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&q=80&w=2000" 
+          src="https://res.cloudinary.com/dr78wne7t/image/upload/q_auto/f_auto/v1775777688/_MG_0096.CR2-2025-6-26_14.48.56_uwhvml.jpg" 
           alt="Niños trabajando en ambiente Montessori" 
           className="w-full h-full object-cover opacity-30 scale-105"
           referrerPolicy="no-referrer"
@@ -164,7 +229,11 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
           <div className="space-y-10">
             <div className="space-y-4">
               <h2 className="text-5xl md:text-6xl font-display text-montessori-green leading-tight">Una educación para la vida</h2>
-              <div className="h-2 w-24 bg-montessori-yellow rounded-full" />
+              <motion.div 
+                animate={{ width: ["4rem", "8rem", "4rem"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="h-2 bg-montessori-yellow rounded-full" 
+              />
             </div>
             <div className="space-y-6 text-xl leading-relaxed text-montessori-grey font-light">
               <p>
@@ -184,9 +253,13 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
                 "Desarrollo emocional"
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-4 bg-white/50 p-4 rounded-2xl border border-montessori-line/50">
-                  <div className="w-10 h-10 bg-montessori-green/10 rounded-full flex items-center justify-center text-montessori-green">
+                  <motion.div 
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                    className="w-10 h-10 bg-montessori-green/10 rounded-full flex items-center justify-center text-montessori-green"
+                  >
                     <CheckCircle2 size={20} />
-                  </div>
+                  </motion.div>
                   <span className="font-semibold text-montessori-grey">{item}</span>
                 </div>
               ))}
@@ -281,10 +354,27 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
           "La educación es un proceso natural llevado a cabo por el niño y no se adquiere escuchando palabras, sino mediante experiencias sobre el medio."
         </p>
         <div className="flex justify-center gap-4">
-          <div className="w-3 h-3 bg-montessori-red rounded-full" />
-          <div className="w-3 h-3 bg-montessori-blue rounded-full" />
-          <div className="w-3 h-3 bg-montessori-green rounded-full" />
-          <div className="w-3 h-3 bg-montessori-yellow rounded-full" />
+          {[
+            { color: 'bg-montessori-red', delay: 0 },
+            { color: 'bg-montessori-blue', delay: 0.2 },
+            { color: 'bg-montessori-green', delay: 0.4 },
+            { color: 'bg-montessori-yellow', delay: 0.6 }
+          ].map((dot, i) => (
+            <motion.div 
+              key={i}
+              animate={{ 
+                scale: [1, 1.4, 1],
+                opacity: [0.6, 1, 0.6]
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity, 
+                delay: dot.delay,
+                ease: "easeInOut"
+              }}
+              className={`w-3 h-3 ${dot.color} rounded-full`} 
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -319,9 +409,33 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
 const Ambientes = () => (
   <div className="py-24 space-y-32 relative overflow-hidden">
     {/* Decorative Blobs for Warmth */}
-    <div className="blob-bg w-[600px] h-[600px] bg-montessori-yellow top-[5%] left-[-15%] opacity-20" />
-    <div className="blob-bg w-[500px] h-[500px] bg-montessori-red bottom-[20%] right-[-10%] opacity-15" />
-    <div className="blob-bg w-[400px] h-[400px] bg-montessori-green top-[40%] right-[10%] opacity-10" />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.1, 1],
+        x: [0, 30, 0],
+        y: [0, 20, 0]
+      }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      className="blob-bg w-[600px] h-[600px] bg-montessori-yellow top-[5%] left-[-15%] opacity-20" 
+    />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.2, 1],
+        x: [0, -20, 0],
+        y: [0, -30, 0]
+      }}
+      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      className="blob-bg w-[500px] h-[500px] bg-montessori-red bottom-[20%] right-[-10%] opacity-15" 
+    />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.15, 1],
+        x: [0, 40, 0],
+        y: [0, -40, 0]
+      }}
+      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      className="blob-bg w-[400px] h-[400px] bg-montessori-green top-[40%] right-[10%] opacity-10" 
+    />
 
     <DecorativeBeads className="top-20 left-1/4" />
     <DecorativeBeads className="bottom-40 right-1/4" />
@@ -347,9 +461,13 @@ const Ambientes = () => (
           />
         </motion.div>
         <div className="space-y-8">
-          <div className="inline-block px-4 py-1 bg-montessori-green/10 text-montessori-green rounded-full font-bold text-sm uppercase tracking-widest mb-2">
+          <motion.div 
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="inline-block px-4 py-1 bg-montessori-green/10 text-montessori-green rounded-full font-bold text-sm uppercase tracking-widest mb-2"
+          >
             3 a 6 años
-          </div>
+          </motion.div>
           <h3 className="text-5xl text-montessori-green font-display leading-tight">Casa de Niños</h3>
           <p className="text-xl leading-relaxed text-montessori-grey font-light">
             Casa de Niños se fundamenta en la filosofía Montessori como base del modelo INDIVIDUA. En esta etapa se construyen las bases de la autonomía, el orden interno y la concentración a través de materiales que invitan al descubrimiento espontáneo.
@@ -489,8 +607,24 @@ const Metodo = () => (
 const Niveles = () => (
   <div className="py-24 relative overflow-hidden bg-white/20">
     {/* Decorative Blobs */}
-    <div className="blob-bg w-[600px] h-[600px] bg-montessori-blue top-[10%] left-[-15%] opacity-10" />
-    <div className="blob-bg w-[500px] h-[500px] bg-montessori-yellow bottom-[10%] right-[-10%] opacity-15" />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.1, 1],
+        x: [0, 20, 0],
+        y: [0, 30, 0]
+      }}
+      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      className="blob-bg w-[600px] h-[600px] bg-montessori-blue top-[10%] left-[-15%] opacity-10" 
+    />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.2, 1],
+        x: [0, -30, 0],
+        y: [0, -20, 0]
+      }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      className="blob-bg w-[500px] h-[500px] bg-montessori-yellow bottom-[10%] right-[-10%] opacity-15" 
+    />
     
     <DecorativeBeads className="top-1/4 right-10" />
     <DecorativeBeads className="bottom-1/4 left-10" />
@@ -518,7 +652,11 @@ const Niveles = () => (
               ))}
             </div>
             <div className="relative">
-              <div className="absolute -left-4 top-0 bottom-0 w-2 bg-montessori-green rounded-full" />
+              <motion.div 
+                animate={{ height: ["20%", "100%", "20%"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -left-4 top-0 w-2 bg-montessori-green rounded-full" 
+              />
               <p className="text-xl leading-relaxed text-montessori-grey pl-8 italic font-serif opacity-80">
                 "El ambiente preparado favorece la elección con propósito, la independencia progresiva y los primeros pasos en la responsabilidad social."
               </p>
@@ -575,7 +713,11 @@ const Niveles = () => (
               ))}
             </div>
             <div className="relative">
-              <div className="absolute -left-4 top-0 bottom-0 w-2 bg-montessori-blue rounded-full" />
+              <motion.div 
+                animate={{ height: ["20%", "100%", "20%"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -left-4 top-0 w-2 bg-montessori-blue rounded-full" 
+              />
               <p className="text-xl leading-relaxed text-montessori-grey pl-8 italic font-serif opacity-80">
                 "INDIVIDUA funciona como un puente metodológico entre la base Montessori y los retos académicos y sociales de la primaria."
               </p>
@@ -590,8 +732,24 @@ const Niveles = () => (
 const Comunidad = () => (
   <div className="py-24 space-y-24 relative overflow-hidden bg-montessori-ivory/50">
     {/* Decorative Blobs */}
-    <div className="blob-bg w-[600px] h-[600px] bg-montessori-red bottom-[-10%] left-[-15%] opacity-10" />
-    <div className="blob-bg w-[500px] h-[500px] bg-montessori-yellow top-[10%] right-[-10%] opacity-15" />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.15, 1],
+        x: [0, 30, 0],
+        y: [0, 20, 0]
+      }}
+      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      className="blob-bg w-[600px] h-[600px] bg-montessori-red bottom-[-10%] left-[-15%] opacity-10" 
+    />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.1, 1],
+        x: [0, -20, 0],
+        y: [0, -30, 0]
+      }}
+      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      className="blob-bg w-[500px] h-[500px] bg-montessori-yellow top-[10%] right-[-10%] opacity-15" 
+    />
     
     <section className="container mx-auto px-6 max-w-6xl">
       <SectionTitle 
@@ -605,7 +763,11 @@ const Comunidad = () => (
           "La relación se basa en corresponsabilidad. La escuela guía y estructura. La familia respalda y modela."
         </p>
         <div className="mt-12 flex justify-center">
-          <div className="h-1 w-32 bg-montessori-red/30 rounded-full" />
+          <motion.div 
+            animate={{ width: ["4rem", "8rem", "4rem"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="h-1 bg-montessori-red/30 rounded-full" 
+          />
         </div>
         <p className="mt-12 text-xl text-montessori-grey text-center max-w-3xl mx-auto leading-relaxed">
           Existe comunicación clara, respetuosa y constante, alineada a la visión institucional para acompañar el desarrollo integral de cada niño.
@@ -646,7 +808,7 @@ const Comunidad = () => (
           <div className="absolute -inset-6 bg-montessori-yellow/10 rounded-[60px] rotate-3 -z-10" />
           <div className="absolute -inset-6 bg-montessori-red/5 rounded-[60px] -rotate-3 -z-10" />
           <img 
-            src="https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&q=80&w=800" 
+            src="https://res.cloudinary.com/dr78wne7t/image/upload/q_auto/f_auto/v1774579326/Imagen_de_WhatsApp_2025-05-14_a_las_13.26.59_64e2c133_ep6kmc.jpg" 
             alt="Comunidad" 
             className="rounded-[50px] shadow-2xl w-full h-[600px] object-cover border-8 border-white"
             referrerPolicy="no-referrer"
@@ -682,8 +844,24 @@ const Galeria = () => {
 
   return (
     <div className="py-24 relative overflow-hidden bg-montessori-ivory/20">
-      <div className="blob-bg w-[800px] h-[800px] bg-montessori-yellow/10 top-[-20%] right-[-10%]" />
-      <div className="blob-bg w-[600px] h-[600px] bg-montessori-blue/5 bottom-[-10%] left-[-10%]" />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.1, 1],
+          x: [0, 40, 0],
+          y: [0, 20, 0]
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="blob-bg w-[800px] h-[800px] bg-montessori-yellow/10 top-[-20%] right-[-10%]" 
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          x: [0, -30, 0],
+          y: [0, -40, 0]
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="blob-bg w-[600px] h-[600px] bg-montessori-blue/5 bottom-[-10%] left-[-10%]" 
+      />
       
       <div className="container mx-auto px-6">
         <SectionTitle 
@@ -736,8 +914,24 @@ const Galeria = () => {
 
 const Contacto = () => (
   <div className="py-24 relative overflow-hidden bg-white/50">
-    <div className="blob-bg w-[600px] h-[600px] bg-montessori-green/10 bottom-[-10%] right-[-10%]" />
-    <div className="blob-bg w-[500px] h-[500px] bg-montessori-red/5 top-[-5%] left-[-5%]" />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.1, 1],
+        x: [0, 20, 0],
+        y: [0, 30, 0]
+      }}
+      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      className="blob-bg w-[600px] h-[600px] bg-montessori-green/10 bottom-[-10%] right-[-10%]" 
+    />
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.2, 1],
+        x: [0, -30, 0],
+        y: [0, -20, 0]
+      }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      className="blob-bg w-[500px] h-[500px] bg-montessori-red/5 top-[-5%] left-[-5%]" 
+    />
     
     <div className="container mx-auto px-6">
       <SectionTitle 
@@ -756,30 +950,46 @@ const Contacto = () => (
           
           <div className="grid sm:grid-cols-2 gap-10">
             <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-montessori-green/10 rounded-2xl flex items-center justify-center text-montessori-green">
+              <motion.div 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-16 h-16 bg-montessori-green/10 rounded-2xl flex items-center justify-center text-montessori-green"
+              >
                 <Mail size={32} />
-              </div>
+              </motion.div>
               <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Escríbenos</h4>
               <p className="text-lg font-medium">hola@riberamontessori.mx</p>
             </div>
             <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-montessori-red/10 rounded-2xl flex items-center justify-center text-montessori-red">
+              <motion.div 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                className="w-16 h-16 bg-montessori-red/10 rounded-2xl flex items-center justify-center text-montessori-red"
+              >
                 <Phone size={32} />
-              </div>
+              </motion.div>
               <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Llámanos</h4>
               <p className="text-lg font-medium">+52 (55) 1234 5678</p>
             </div>
             <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-montessori-blue/10 rounded-2xl flex items-center justify-center text-montessori-blue">
+              <motion.div 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                className="w-16 h-16 bg-montessori-blue/10 rounded-2xl flex items-center justify-center text-montessori-blue"
+              >
                 <Clock size={32} />
-              </div>
+              </motion.div>
               <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Horario</h4>
               <p className="text-lg font-medium">Lun - Vie | 8:00 - 15:00</p>
             </div>
             <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-montessori-yellow/10 rounded-2xl flex items-center justify-center text-montessori-yellow">
+              <motion.div 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+                className="w-16 h-16 bg-montessori-yellow/10 rounded-2xl flex items-center justify-center text-montessori-yellow"
+              >
                 <MapPin size={32} />
-              </div>
+              </motion.div>
               <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Ubicación</h4>
               <p className="text-lg font-medium">La Ribera, Ciudad de México</p>
             </div>
@@ -897,9 +1107,13 @@ export default function App() {
             className="flex items-center gap-4 cursor-pointer group" 
             onClick={() => setPage('inicio')}
           >
-            <div className="w-14 h-14 bg-montessori-green rounded-full flex items-center justify-center text-white font-bold text-2xl group-hover:scale-110 transition-transform shadow-md">
+            <motion.div 
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="w-14 h-14 bg-montessori-green rounded-full flex items-center justify-center text-white font-bold text-2xl group-hover:scale-110 transition-transform shadow-md"
+            >
               M
-            </div>
+            </motion.div>
             <div>
               <span className="block font-display font-semibold text-2xl leading-tight text-montessori-green">Montessori</span>
               <span className="block text-sm tracking-[0.3em] uppercase text-montessori-grey font-bold">La Ribera</span>
@@ -993,9 +1207,13 @@ export default function App() {
           <div className="grid md:grid-cols-4 gap-12">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-montessori-green rounded-full flex items-center justify-center text-white font-bold text-xl">
+                <motion.div 
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="w-12 h-12 bg-montessori-green rounded-full flex items-center justify-center text-white font-bold text-xl"
+                >
                   M
-                </div>
+                </motion.div>
                 <span className="font-display font-semibold text-2xl text-montessori-green">Montessori La Ribera</span>
               </div>
               <p className="text-lg text-montessori-grey max-w-md mb-8 leading-relaxed">
