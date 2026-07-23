@@ -1,5 +1,6 @@
 {
-  "name": "Montessori La Ribera",
-  "description": "Sitio web institucional de la escuela Montessori La Ribera, enfocado en autonomía, carácter y responsabilidad.",
-  "requestFramePermissions": []
+  "name": "La Ribera School",
+  "description": "Sitio web institucional de La Ribera School, enfocado en autonomía, carácter y responsabilidad.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

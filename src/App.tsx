@@ -48,7 +48,13 @@ const MontessoriSeparator = () => (
 );
 
 const SectionTitle = ({ title, subtitle, centered = true }: { title: string; subtitle?: string; centered?: boolean }) => (
-  <div className={`mb-16 ${centered ? 'text-center' : ''}`}>
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.8, ease: "easeOut" }}
+    className={`mb-16 ${centered ? 'text-center' : ''}`}
+  >
     <h2 className="text-4xl md:text-5xl mb-6 font-display text-montessori-green tracking-tight">{title}</h2>
     {subtitle && <p className="text-xl text-montessori-grey max-w-3xl mx-auto leading-relaxed font-serif italic opacity-80">{subtitle}</p>}
     <div className={`mt-6 flex gap-2 ${centered ? 'justify-center' : ''}`}>
@@ -73,7 +79,7 @@ const SectionTitle = ({ title, subtitle, centered = true }: { title: string; sub
         />
       ))}
     </div>
-  </div>
+  </motion.div>
 );
 
 const LittlePeopleBorder = () => (
@@ -126,41 +132,17 @@ const DecorativeBeads = ({ className }: { className?: string }) => (
 
 const Home = ({ setPage }: { setPage: (p: string) => void }) => (
   <div className="space-y-24 pb-24 relative overflow-hidden bg-montessori-ivory/30">
-    {/* Background Blobs for Warmth */}
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.1, 1],
-        x: [0, 20, 0],
-        y: [0, 30, 0]
-      }}
-      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      className="blob-bg w-[600px] h-[600px] bg-montessori-yellow/20 top-[-10%] left-[-10%]" 
-    />
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.2, 1],
-        x: [0, -30, 0],
-        y: [0, -20, 0]
-      }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      className="blob-bg w-[500px] h-[500px] bg-montessori-red/10 top-[20%] right-[-15%]" 
-    />
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.15, 1],
-        x: [0, 40, 0],
-        y: [0, -40, 0]
-      }}
-      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      className="blob-bg w-[400px] h-[400px] bg-montessori-blue/10 bottom-[10%] left-[5%]" 
-    />
-
     {/* Hero Section */}
-    <section className="relative min-h-[95vh] flex items-center overflow-hidden pt-20">
+    <motion.section 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="relative min-h-[95vh] flex items-center overflow-hidden pt-20"
+    >
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-montessori-ivory/60 via-montessori-ivory/20 to-montessori-ivory/80 z-10" />
         <img 
-          src="https://res.cloudinary.com/dr78wne7t/image/upload/q_auto/f_auto/v1775777688/_MG_0096.CR2-2025-6-26_14.48.56_uwhvml.jpg" 
+          src="https://res.cloudinary.com/dr78wne7t/image/upload/v1784762154/WhatsApp_Image_2026-04-30_at_2.24.00_PM_asvfgq.jpg" 
           alt="Niños trabajando en ambiente Montessori" 
           className="w-full h-full object-cover opacity-30 scale-105"
           referrerPolicy="no-referrer"
@@ -168,25 +150,36 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
       </div>
       <div className="container mx-auto px-6 relative z-20 text-center">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="max-w-5xl mx-auto"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.2 } }
+          }}
+          className="max-w-5xl mx-auto flex flex-col items-center"
         >
-          <div className="inline-block mb-6 px-6 py-2 bg-montessori-green/10 text-montessori-green rounded-full font-bold text-sm uppercase tracking-[0.2em]">
-            Comunidad Educativa La Ribera
-          </div>
-          <h1 className="text-7xl md:text-[10rem] mb-8 leading-[0.85] font-display text-montessori-green drop-shadow-sm">
-            Montessori <br />
-            <span className="text-montessori-red font-serif italic">La Ribera</span>
-          </h1>
-          <p className="text-2xl md:text-4xl text-montessori-grey mb-12 font-serif italic max-w-3xl mx-auto leading-tight opacity-90">
-            “Donde el aprendizaje nace del asombro y crece con libertad.”
-          </p>
-          <div className="max-w-3xl mx-auto text-xl text-montessori-grey mb-14 leading-relaxed font-light">
-            Un espacio cálido y seguro diseñado para que cada niño descubra su potencial a través del respeto, la autonomía y el acompañamiento cercano de guías apasionadas.
-          </div>
-          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
+          <motion.img 
+            variants={{ hidden: { opacity: 0, scale: 0.9, y: 20 }, visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } }}
+            src="https://res.cloudinary.com/dr78wne7t/image/upload/v1784762558/FullColor_xkeddp.png" 
+            alt="La Ribera School" 
+            className="h-64 md:h-80 object-contain mb-8 drop-shadow-sm"
+          />
+          <motion.p 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+            className="text-2xl md:text-4xl text-montessori-grey mb-12 font-serif italic max-w-3xl mx-auto leading-tight opacity-90"
+          >
+            “Aprender con sentido, crecer con propósito.”
+          </motion.p>
+          <motion.div 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+            className="max-w-3xl mx-auto text-xl text-montessori-grey mb-14 leading-relaxed font-light"
+          >
+            Nuestro propósito es formar alumnos independientes, con pensamiento crítico, autorregulación y sentido de responsabilidad, preparados para asumir los retos académicos, personales y sociales de su futuro.
+          </motion.div>
+          <motion.div 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+            className="flex flex-col sm:flex-row gap-8 justify-center items-center"
+          >
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -195,32 +188,10 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
             >
               Agendar una visita <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
             </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setPage('metodo')}
-              className="bg-white border-2 border-montessori-green/30 text-montessori-green px-12 py-6 rounded-[40px] hover:bg-montessori-green/5 transition-all font-bold text-xl shadow-md"
-            >
-              Nuestro Método
-            </motion.button>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
-      
-      {/* Decorative Floating Elements */}
-      <motion.div 
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 right-10 w-20 h-20 bg-montessori-yellow/20 rounded-full blur-xl hidden lg:block"
-      />
-      <motion.div 
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-1/4 left-10 w-32 h-32 bg-montessori-blue/10 rounded-full blur-2xl hidden lg:block"
-      />
-    </section>
-
-    <LittlePeopleBorder />
+    </motion.section>
 
     {/* Propuesta Educativa */}
     <section className="container mx-auto px-6 py-12">
@@ -237,22 +208,25 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
             </div>
             <div className="space-y-6 text-xl leading-relaxed text-montessori-grey font-light">
               <p>
-                En <span className="text-montessori-green font-bold">Montessori La Ribera</span>, creemos que la educación no es algo que el maestro hace, sino un proceso natural que se desarrolla espontáneamente en el ser humano.
-              </p>
-              <p>
-                Nuestro ambiente está cuidadosamente preparado para que los niños se sientan en casa, rodeados de materiales que invitan a la exploración y al descubrimiento.
+                En <span className="text-montessori-green font-bold">La Ribera School</span>, creemos que la educación no es algo que el maestro hace, sino un proceso natural que se desarrolla espontáneamente en el ser humano. Nuestro ambiente está cuidadosamente preparado para que los niños se sientan en casa, en confianza con los materiales que invitan a la exploración y al descubrimiento.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
               {[
-                "Respeto a la individualidad",
-                "Ambientes de paz",
-                "Materiales científicos",
+                "Ambiente preparado",
                 "Guías certificadas",
-                "Conexión con la naturaleza",
-                "Desarrollo emocional"
+                "Autonomía guiada",
+                "Identidad y autoconocimiento",
+                "Disciplina que forma y acompaña",
+                "Comunidad y corresponsabilidad"
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 bg-white/50 p-4 rounded-2xl border border-montessori-line/50">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  key={i} className="flex items-center gap-4 bg-white/50 p-4 rounded-2xl border border-montessori-line/50"
+                >
                   <motion.div 
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
@@ -261,11 +235,17 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
                     <CheckCircle2 size={20} />
                   </motion.div>
                   <span className="font-semibold text-montessori-grey">{item}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-          <div className="relative">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
             <motion.div 
               initial={{ rotate: 5 }}
               whileHover={{ rotate: 0 }}
@@ -283,7 +263,7 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
               referrerPolicy="no-referrer"
             />
             <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-montessori-blue/20 rounded-full blur-3xl -z-10" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -299,6 +279,10 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
         />
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
             whileHover={{ y: -10 }}
             className="bg-white p-12 rounded-[50px] border border-montessori-line shadow-xl relative overflow-hidden group"
           >
@@ -319,6 +303,10 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
           </motion.div>
           
           <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             whileHover={{ y: -10 }}
             className="bg-white p-12 rounded-[50px] border border-montessori-line shadow-xl relative overflow-hidden group"
           >
@@ -328,7 +316,7 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
             </div>
             <h3 className="text-4xl mb-6 font-display text-montessori-blue">Primaria Baja</h3>
             <p className="mb-10 text-xl leading-relaxed text-montessori-grey font-light">
-              El paso hacia la investigación y el razonamiento abstracto, manteniendo la esencia del respeto y la individualidad.
+              Se basa en un enfoque constructivista que promueve el aprendizaje activo a través de la experiencia, la reflexión y la colaboración. Este modelo se complementa con principios de la filosofía Montessori, fomentando la autonomía, la responsabilidad, el respeto por el desarrollo individual y la participación activa de cada estudiante en su proceso de aprendizaje.
             </p>
             <button 
               onClick={() => setPage('niveles')} 
@@ -343,56 +331,22 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
 
     <MontessoriSeparator />
 
-    {/* Comunidad Quote */}
-    <section className="container mx-auto px-6 py-12">
-      <div className="max-w-5xl mx-auto text-center space-y-12">
-        <div className="relative inline-block">
-          <div className="absolute -inset-8 bg-montessori-red/5 rounded-full blur-3xl -z-10" />
-          <h2 className="text-5xl md:text-7xl font-display text-montessori-red leading-tight">Una comunidad que abraza</h2>
-        </div>
-        <p className="text-2xl md:text-3xl leading-relaxed text-montessori-grey font-light italic max-w-4xl mx-auto">
-          "La educación es un proceso natural llevado a cabo por el niño y no se adquiere escuchando palabras, sino mediante experiencias sobre el medio."
-        </p>
-        <div className="flex justify-center gap-4">
-          {[
-            { color: 'bg-montessori-red', delay: 0 },
-            { color: 'bg-montessori-blue', delay: 0.2 },
-            { color: 'bg-montessori-green', delay: 0.4 },
-            { color: 'bg-montessori-yellow', delay: 0.6 }
-          ].map((dot, i) => (
-            <motion.div 
-              key={i}
-              animate={{ 
-                scale: [1, 1.4, 1],
-                opacity: [0.6, 1, 0.6]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity, 
-                delay: dot.delay,
-                ease: "easeInOut"
-              }}
-              className={`w-3 h-3 ${dot.color} rounded-full`} 
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-
     {/* CTA Final */}
     <section className="container mx-auto px-6 py-12">
       <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8 }}
         whileHover={{ scale: 1.01 }}
         className="bg-montessori-green rounded-[60px] text-white py-24 px-12 text-center shadow-2xl relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-        <div className="blob-bg w-[400px] h-[400px] bg-white/10 top-[-20%] right-[-10%]" />
-        <div className="blob-bg w-[300px] h-[300px] bg-montessori-yellow/20 bottom-[-10%] left-[-5%]" />
         
         <div className="relative z-10 max-w-4xl mx-auto">
           <h2 className="text-5xl md:text-7xl mb-10 text-white font-display leading-tight">¿Listos para empezar este viaje?</h2>
           <p className="text-2xl mb-16 opacity-90 leading-relaxed font-light">
-            Agenda una cita para conocer nuestros ambientes y descubrir cómo el método Montessori puede transformar la vida de tus hijos.
+            Agenda una cita para conocer nuestro modelo educativo y descubrir cómo puede acompañar el desarrollo de tu hijo.
           </p>
           <button 
             onClick={() => setPage('contacto')}
@@ -406,109 +360,81 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
   </div>
 );
 
-const Ambientes = () => (
+const Nosotros = () => (
   <div className="py-24 space-y-32 relative overflow-hidden">
-    {/* Decorative Blobs for Warmth */}
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.1, 1],
-        x: [0, 30, 0],
-        y: [0, 20, 0]
-      }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      className="blob-bg w-[600px] h-[600px] bg-montessori-yellow top-[5%] left-[-15%] opacity-20" 
-    />
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.2, 1],
-        x: [0, -20, 0],
-        y: [0, -30, 0]
-      }}
-      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      className="blob-bg w-[500px] h-[500px] bg-montessori-red bottom-[20%] right-[-10%] opacity-15" 
-    />
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.15, 1],
-        x: [0, 40, 0],
-        y: [0, -40, 0]
-      }}
-      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      className="blob-bg w-[400px] h-[400px] bg-montessori-green top-[40%] right-[10%] opacity-10" 
-    />
 
-    <DecorativeBeads className="top-20 left-1/4" />
-    <DecorativeBeads className="bottom-40 right-1/4" />
-    <DecorativeBeads className="top-1/2 left-10 rotate-90" />
-
-    <section className="container mx-auto px-6">
+    <section className="container mx-auto px-6 max-w-6xl">
       <SectionTitle 
-        title="Nuestros Ambientes" 
-        subtitle="Espacios diseñados científicamente para fomentar la independencia, el orden y la concentración en cada etapa del desarrollo."
+        title="Nosotros" 
+        subtitle="Conoce nuestra esencia y el propósito que guía nuestra comunidad."
       />
       
-      <div className="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto mb-32">
+      <div className="grid md:grid-cols-2 gap-16 mb-24">
+        {/* Misión */}
         <motion.div 
-          whileHover={{ scale: 1.02 }}
-          className="relative group"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8 }}
+          className="bg-white p-12 rounded-[40px] shadow-sm border border-montessori-line relative overflow-hidden group hover:shadow-md transition-shadow"
         >
-          <div className="absolute -inset-4 bg-montessori-green/10 rounded-[60px] rotate-3 group-hover:rotate-0 transition-transform duration-500" />
-          <img 
-            src="https://res.cloudinary.com/dr78wne7t/image/upload/v1774579342/DSC01018_tcq2qj.jpg" 
-            alt="Ambiente Casa de Niños" 
-            className="relative rounded-[50px] shadow-2xl w-full h-[500px] object-cover border-8 border-white"
-            referrerPolicy="no-referrer"
-          />
-        </motion.div>
-        <div className="space-y-8">
-          <motion.div 
-            animate={{ opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="inline-block px-4 py-1 bg-montessori-green/10 text-montessori-green rounded-full font-bold text-sm uppercase tracking-widest mb-2"
-          >
-            3 a 6 años
-          </motion.div>
-          <h3 className="text-5xl text-montessori-green font-display leading-tight">Casa de Niños</h3>
-          <p className="text-xl leading-relaxed text-montessori-grey font-light">
-            Casa de Niños se fundamenta en la filosofía Montessori como base del modelo INDIVIDUA. En esta etapa se construyen las bases de la autonomía, el orden interno y la concentración a través de materiales que invitan al descubrimiento espontáneo.
+          <div className="absolute top-0 left-0 w-2 h-full bg-montessori-green group-hover:w-full transition-all duration-500 opacity-10" />
+          <h3 className="text-3xl font-display text-montessori-green mb-6 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-montessori-green/10 flex items-center justify-center font-bold text-xl">M</div>
+            Misión
+          </h3>
+          <p className="text-xl text-montessori-grey leading-relaxed font-light">
+            Nuestra misión es ofrecer un entorno seguro y formativo donde cada niño desarrolle autonomía, fortalezca su carácter y aprenda a convivir con responsabilidad dentro de una comunidad que acompaña su crecimiento.
           </p>
-          <div className="p-8 bg-white/60 backdrop-blur-sm rounded-3xl border-l-8 border-montessori-green shadow-sm italic text-xl text-montessori-grey relative font-serif">
-            <span className="absolute -top-4 -left-4 text-6xl text-montessori-green/20 font-serif">“</span>
-            La primera tarea de la educación es agitar la vida, pero dejarla libre para que se desarrolle.
-          </div>
-        </div>
+        </motion.div>
+
+        {/* Visión */}
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="bg-white p-12 rounded-[40px] shadow-sm border border-montessori-line relative overflow-hidden group hover:shadow-md transition-shadow"
+        >
+          <div className="absolute top-0 left-0 w-2 h-full bg-montessori-blue group-hover:w-full transition-all duration-500 opacity-10" />
+          <h3 className="text-3xl font-display text-montessori-blue mb-6 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-montessori-blue/10 flex items-center justify-center font-bold text-xl">V</div>
+            Visión
+          </h3>
+          <p className="text-xl text-montessori-grey leading-relaxed font-light">
+            Ser una comunidad educativa sólida donde cada alumno crezca con curiosidad, confianza y amabilidad, convirtiéndose en una persona autónoma y responsable que contribuya de manera positiva a su entorno.
+          </p>
+        </motion.div>
       </div>
 
-      <div className="max-w-4xl mx-auto my-24">
-        <MontessoriSeparator />
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
-        <div className="order-2 md:order-1 space-y-8">
-          <div className="inline-block px-4 py-1 bg-montessori-blue/10 text-montessori-blue rounded-full font-bold text-sm uppercase tracking-widest mb-2">
-            6 a 12 años
-          </div>
-          <h3 className="text-5xl text-montessori-blue font-display leading-tight">Primaria | Modelo INDIVIDUA</h3>
-          <p className="text-xl leading-relaxed text-montessori-grey font-light">
-            Nuestra Primaria representa la evolución del modelo hacia una mayor estructura académica sin perder la esencia de la autonomía. Los ambientes son dinámicos y colaborativos, fomentando la investigación profunda y el pensamiento crítico.
-          </p>
-          <div className="p-8 bg-white/60 backdrop-blur-sm rounded-3xl border-l-8 border-montessori-blue shadow-sm italic text-xl text-montessori-grey relative font-serif">
-            <span className="absolute -top-4 -left-4 text-6xl text-montessori-blue/20 font-serif">“</span>
-            El niño que tiene libertad y oportunidad de manipular y usar su mano en una forma lógica, desarrolla una fuerte personalidad.
-          </div>
+      {/* Valores */}
+      <div className="max-w-4xl mx-auto">
+        <h3 className="text-4xl text-center font-display text-montessori-red mb-16">Nuestros Valores</h3>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {[
+            "Respeto profundo por la infancia y sus procesos de desarrollo",
+            "Autonomía guiada y progresiva",
+            "Carácter y responsabilidad personal",
+            "Comunidad y corresponsabilidad familia–escuela",
+            "Disciplina que forma y acompaña",
+            "Compromiso con el entorno"
+          ].map((valor, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              whileHover={{ scale: 1.02 }}
+              className="flex items-start gap-4 p-6 bg-white rounded-3xl shadow-sm border border-montessori-line"
+            >
+              <div className="w-8 h-8 shrink-0 rounded-full bg-montessori-yellow/20 flex items-center justify-center text-montessori-yellow font-bold mt-1">
+                {i + 1}
+              </div>
+              <p className="text-lg text-montessori-grey font-medium leading-relaxed">{valor}</p>
+            </motion.div>
+          ))}
         </div>
-        <motion.div 
-          whileHover={{ scale: 1.02 }}
-          className="order-1 md:order-2 relative group"
-        >
-          <div className="absolute -inset-4 bg-montessori-blue/10 rounded-[60px] -rotate-3 group-hover:rotate-0 transition-transform duration-500" />
-          <img 
-            src="https://res.cloudinary.com/dr78wne7t/image/upload/v1774579316/IMG-20250430-WA0020_atgcpk.jpg" 
-            alt="Ambiente Primaria" 
-            className="relative rounded-[50px] shadow-2xl w-full h-[500px] object-cover border-8 border-white"
-            referrerPolicy="no-referrer"
-          />
-        </motion.div>
       </div>
     </section>
   </div>
@@ -516,30 +442,36 @@ const Ambientes = () => (
 
 const Metodo = () => (
   <div className="py-24 space-y-24 relative overflow-hidden bg-white/30">
-    {/* Decorative Blobs */}
-    <div className="blob-bg w-[700px] h-[700px] bg-montessori-red top-[10%] right-[-15%] opacity-10" />
-    <div className="blob-bg w-[500px] h-[500px] bg-montessori-yellow bottom-[5%] left-[-10%] opacity-20" />
-
-    <DecorativeBeads className="top-10 right-1/4 rotate-12" />
-    <DecorativeBeads className="bottom-20 left-1/3 -rotate-6" />
 
     <section className="container mx-auto px-6 max-w-6xl">
       <SectionTitle 
-        title="Nuestra Propuesta Pedagógica" 
-        subtitle="Un equilibrio perfecto entre la tradición Montessori y la innovación educativa del modelo INDIVIDUA." 
+        title="Propuesta pedagógica" 
+        subtitle="Educar no es transmitir información, sino formar seres humanos capaces de pensar, decidir, crear y contribuir al mundo con autonomía y responsabilidad." 
       />
       
       <div className="grid lg:grid-cols-5 gap-12 items-stretch mb-24">
-        <div className="lg:col-span-3 bg-white p-12 md:p-16 rounded-[40px] shadow-xl border border-montessori-line flex flex-col justify-center">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8 }}
+          className="lg:col-span-3 bg-white p-12 md:p-16 rounded-[40px] shadow-xl border border-montessori-line flex flex-col justify-center"
+        >
           <p className="text-2xl md:text-3xl leading-relaxed text-montessori-grey font-serif italic">
-            "Montessori La Ribera integra la filosofía Montessori en preescolar y evoluciona hacia el modelo educativo INDIVIDUA en primaria."
+            "La Ribera School integra la metodología Montessori en preescolar y continúa en primaria con una propuesta educativa centrada en el aprendizaje con propósito, el desarrollo del pensamiento crítico, la autonomía y la formación del carácter."
           </p>
           <div className="mt-8 h-1 w-24 bg-montessori-yellow rounded-full" />
           <p className="mt-8 text-xl text-montessori-grey leading-relaxed">
-            Esta propuesta acompaña el desarrollo emocional y académico con equilibrio: autonomía con guía, libertad con propósito y formación del carácter dentro de una comunidad respetuosa y estructurada.
+            Esta propuesta acompaña el desarrollo emocional y académico con equilibrio, dentro de una comunidad respetuosa y estructurada.
           </p>
-        </div>
-        <div className="lg:col-span-2 relative rounded-[40px] overflow-hidden shadow-xl group">
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="lg:col-span-2 relative rounded-[40px] overflow-hidden shadow-xl group"
+        >
           <img 
             src="https://res.cloudinary.com/dr78wne7t/image/upload/v1774579322/Imagen_de_WhatsApp_2025-05-14_a_las_13.26.59_911c0fe9_imhvqz.jpg" 
             alt="Niño trabajando" 
@@ -551,54 +483,34 @@ const Metodo = () => (
             <p className="text-lg font-bold uppercase tracking-widest opacity-80 mb-2">Aprendizaje Activo</p>
             <h4 className="text-2xl text-white">Libertad con propósito</h4>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12">
-        <div className="bg-white p-12 rounded-[40px] border border-montessori-line shadow-lg relative group overflow-hidden flex flex-col">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-montessori-green/5 rounded-full -mr-24 -mt-24 group-hover:scale-125 transition-transform duration-500" />
-          <div className="mb-8 w-16 h-16 bg-montessori-green/10 rounded-2xl flex items-center justify-center text-montessori-green">
-            <CheckCircle2 size={32} />
-          </div>
-          <h3 className="text-4xl mb-6 text-montessori-green font-display">Filosofía Montessori</h3>
-          <p className="text-xl mb-8 leading-relaxed text-montessori-grey flex-grow">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8 }}
+          className="bg-white p-12 rounded-[40px] border border-montessori-line shadow-lg flex flex-col"
+        >
+          <h3 className="text-3xl md:text-4xl mb-6 text-montessori-green font-display">Metodología</h3>
+          <p className="text-xl mb-8 leading-relaxed text-montessori-grey flex-grow font-light">
+            Seguimos la metodología Montessori en kínder, una filosofía educativa basada en la autodirección, el aprendizaje práctico y la colaboración. En primaria, el modelo evoluciona hacia una mayor estructura académica, fortaleciendo la autonomía, el pensamiento crítico y el compromiso personal.
+          </p>
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="bg-white p-12 rounded-[40px] border border-montessori-line shadow-lg flex flex-col"
+        >
+          <h3 className="text-3xl md:text-4xl mb-6 text-montessori-blue font-display">Filosofía Montessori</h3>
+          <p className="text-xl mb-8 leading-relaxed text-montessori-grey flex-grow font-light">
             Es un enfoque educativo donde los niños aprenden de forma activa, eligiendo actividades dentro de un ambiente preparado que respeta su etapa de desarrollo y promueve la autonomía desde los primeros años.
           </p>
-          <div className="bg-montessori-ivory p-8 rounded-3xl border border-montessori-line/50">
-            <h4 className="text-xl mb-4 text-montessori-green font-bold uppercase tracking-wider">Desarrollo Integral:</h4>
-            <p className="text-lg italic leading-relaxed text-montessori-grey font-serif">
-              Favorece el desarrollo de niños seguros de sí mismos, responsables y motivados por aprender, fortaleciendo la concentración y el gusto por el aprendizaje.
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-montessori-blue p-12 rounded-[40px] text-white shadow-2xl relative overflow-hidden flex flex-col">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-white/5 rounded-full -mb-32 -mr-32" />
-          
-          <div className="relative z-10 flex flex-col h-full">
-            <div className="mb-8 w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-white">
-              <ArrowRight size={32} />
-            </div>
-            <h3 className="text-4xl mb-6 text-white font-display">Modelo INDIVIDUA</h3>
-            <p className="text-xl mb-10 opacity-90 leading-relaxed flex-grow">
-              Integramos autonomía con acompañamiento, formación del carácter y compromiso con la comunidad, formando personas capaces de actuar con criterio propio.
-            </p>
-            <div className="grid grid-cols-1 gap-4">
-              {[
-                "Autonomía guiada",
-                "Individualidad con compromiso",
-                "Equilibrio entre libertad y estructura",
-                "Disciplina formativa"
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/20">
-                  <div className="w-2 h-2 bg-montessori-yellow rounded-full" />
-                  <span className="font-semibold text-lg">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   </div>
@@ -606,28 +518,6 @@ const Metodo = () => (
 
 const Niveles = () => (
   <div className="py-24 relative overflow-hidden bg-white/20">
-    {/* Decorative Blobs */}
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.1, 1],
-        x: [0, 20, 0],
-        y: [0, 30, 0]
-      }}
-      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      className="blob-bg w-[600px] h-[600px] bg-montessori-blue top-[10%] left-[-15%] opacity-10" 
-    />
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.2, 1],
-        x: [0, -30, 0],
-        y: [0, -20, 0]
-      }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      className="blob-bg w-[500px] h-[500px] bg-montessori-yellow bottom-[10%] right-[-10%] opacity-15" 
-    />
-    
-    <DecorativeBeads className="top-1/4 right-10" />
-    <DecorativeBeads className="bottom-1/4 left-10" />
     
     <div className="container mx-auto px-6">
       <SectionTitle 
@@ -646,9 +536,16 @@ const Niveles = () => (
             </div>
             <div className="grid grid-cols-2 gap-4">
               {["Vida práctica", "Sensorial", "Lenguaje", "Matemáticas"].map((item, i) => (
-                <div key={i} className="bg-white p-6 rounded-3xl border border-montessori-line shadow-sm text-center font-bold text-montessori-green hover:shadow-md transition-shadow">
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  className="bg-white p-6 rounded-3xl border border-montessori-line shadow-sm text-center font-bold text-montessori-green hover:shadow-md transition-shadow"
+                >
                   {item}
-                </div>
+                </motion.div>
               ))}
             </div>
             <div className="relative">
@@ -663,6 +560,10 @@ const Niveles = () => (
             </div>
           </div>
           <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
             whileHover={{ scale: 1.02 }}
             className="order-1 md:order-2 relative"
           >
@@ -682,6 +583,10 @@ const Niveles = () => (
 
         <div className="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
           <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
             whileHover={{ scale: 1.02 }}
             className="relative"
           >
@@ -700,16 +605,23 @@ const Niveles = () => (
               </div>
               <h3 className="text-5xl text-montessori-blue font-display">Primaria Baja</h3>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4">
               {[
-                "Pensamiento lógico", 
-                "Gestión del tiempo", 
-                "Metas personales",
-                "Proyectos guiados"
+                "Lenguaje y Comunicación", 
+                "Pensamiento Matemático", 
+                "Ciencias y Exploración del Mundo",
+                "Comunidad, Carácter y Responsabilidad"
               ].map((item, i) => (
-                <div key={i} className="bg-white p-5 rounded-3xl border border-montessori-line shadow-sm text-center font-bold text-sm text-montessori-blue hover:shadow-md transition-shadow">
-                  {item}
-                </div>
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  className="bg-white p-5 rounded-3xl border border-montessori-line shadow-sm text-center font-bold text-sm text-montessori-blue hover:shadow-md transition-shadow flex items-center justify-center gap-2"
+                >
+                  <span>{item}</span>
+                </motion.div>
               ))}
             </div>
             <div className="relative">
@@ -719,7 +631,7 @@ const Niveles = () => (
                 className="absolute -left-4 top-0 w-2 bg-montessori-blue rounded-full" 
               />
               <p className="text-xl leading-relaxed text-montessori-grey pl-8 italic font-serif opacity-80">
-                "INDIVIDUA funciona como un puente metodológico entre la base Montessori y los retos académicos y sociales de la primaria."
+                "El aprendizaje con propósito fortalece la autonomía, la capacidad de reflexión, la resolución de problemas y el compromiso con los demás, preparando a los alumnos para aprender con independencia y actuar con responsabilidad."
               </p>
             </div>
           </div>
@@ -729,147 +641,50 @@ const Niveles = () => (
   </div>
 );
 
-const Comunidad = () => (
-  <div className="py-24 space-y-24 relative overflow-hidden bg-montessori-ivory/50">
-    {/* Decorative Blobs */}
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.15, 1],
-        x: [0, 30, 0],
-        y: [0, 20, 0]
-      }}
-      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      className="blob-bg w-[600px] h-[600px] bg-montessori-red bottom-[-10%] left-[-15%] opacity-10" 
-    />
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.1, 1],
-        x: [0, -20, 0],
-        y: [0, -30, 0]
-      }}
-      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      className="blob-bg w-[500px] h-[500px] bg-montessori-yellow top-[10%] right-[-10%] opacity-15" 
-    />
-    
-    <section className="container mx-auto px-6 max-w-6xl">
-      <SectionTitle 
-        title="Comunidad y Familia" 
-        subtitle="La educación es un esfuerzo compartido entre la escuela y el hogar, basado en la confianza y el respeto mutuo." 
-      />
-      
-      <div className="bg-white p-12 md:p-20 rounded-[50px] shadow-2xl mb-24 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-2 bg-montessori-red" />
-        <p className="text-3xl md:text-4xl leading-tight text-montessori-grey font-serif italic text-center max-w-4xl mx-auto opacity-90">
-          "La relación se basa en corresponsabilidad. La escuela guía y estructura. La familia respalda y modela."
-        </p>
-        <div className="mt-12 flex justify-center">
-          <motion.div 
-            animate={{ width: ["4rem", "8rem", "4rem"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="h-1 bg-montessori-red/30 rounded-full" 
-          />
-        </div>
-        <p className="mt-12 text-xl text-montessori-grey text-center max-w-3xl mx-auto leading-relaxed">
-          Existe comunicación clara, respetuosa y constante, alineada a la visión institucional para acompañar el desarrollo integral de cada niño.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-20 items-center">
-        <div className="space-y-12">
-          <div className="space-y-6">
-            <h3 className="text-5xl text-montessori-green font-display">Actividades Complementarias</h3>
-            <p className="text-2xl leading-relaxed text-montessori-grey font-light">
-              Nuestras actividades están diseñadas para fortalecer la concentración, la disciplina formativa, la expresión personal y la autorregulación.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-8">
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-[40px] shadow-lg border border-montessori-line text-center group"
-            >
-              <div className="w-24 h-24 bg-montessori-red/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-montessori-red group-hover:text-white transition-all duration-500 shadow-inner">
-                <span className="text-5xl">💃</span>
-              </div>
-              <span className="font-display font-bold text-montessori-red text-2xl">Danza</span>
-            </motion.div>
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-[40px] shadow-lg border border-montessori-line text-center group"
-            >
-              <div className="w-24 h-24 bg-montessori-blue/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-montessori-blue group-hover:text-white transition-all duration-500 shadow-inner">
-                <span className="text-5xl">🎨</span>
-              </div>
-              <span className="font-display font-bold text-montessori-blue text-2xl">Arte</span>
-            </motion.div>
-          </div>
-        </div>
-        <div className="relative">
-          <div className="absolute -inset-6 bg-montessori-yellow/10 rounded-[60px] rotate-3 -z-10" />
-          <div className="absolute -inset-6 bg-montessori-red/5 rounded-[60px] -rotate-3 -z-10" />
-          <img 
-            src="https://res.cloudinary.com/dr78wne7t/image/upload/q_auto/f_auto/v1774579326/Imagen_de_WhatsApp_2025-05-14_a_las_13.26.59_64e2c133_ep6kmc.jpg" 
-            alt="Comunidad" 
-            className="rounded-[50px] shadow-2xl w-full h-[600px] object-cover border-8 border-white"
-            referrerPolicy="no-referrer"
-          />
-        </div>
-      </div>
-    </section>
-  </div>
-);
-
 const Galeria = () => {
   const photos = [
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579865/IMG_0756_em3owg.jpg", size: "large", caption: "Momentos de aprendizaje" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579513/IMG_0739_h42ai0.jpg", size: "tall", caption: "Exploración y juego" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579512/IMG_0738_odobwy.jpg", size: "small", caption: "Concentración total" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579508/IMG_0727_kdzu5w.jpg", size: "wide", caption: "Vida escolar" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579493/IMG_0423_n3wxen.jpg", size: "small", caption: "Descubrimiento" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579457/IMG_2934_z4qw0y.jpg", size: "large", caption: "Ambientes preparados" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579456/IMG-20250901-WA0006_pbhljy.jpg", size: "tall", caption: "Trabajo en equipo" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579347/DSC01005_l8b78b.jpg", size: "small", caption: "Materiales Montessori" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579342/DSC01018_tcq2qj.jpg", size: "wide", caption: "Desarrollo integral" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579338/IMG-20250425-WA0010_vrtbwe.jpg", size: "small", caption: "Creatividad" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579335/DSC01014_v7cmoa.jpg", size: "tall", caption: "Independencia" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579328/DSC01015_d9i755.jpg", size: "small", caption: "Respeto y paz" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579325/Imagen_de_WhatsApp_2025-05-09_a_las_12.46.32_58ff6c61_kfxfyj.jpg", size: "wide", caption: "Comunidad" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579324/IMG_1884_gideac.jpg", size: "large", caption: "Alegría de aprender" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579322/Imagen_de_WhatsApp_2025-05-15_a_las_13.16.45_492f23c0_fcuepv.jpg", size: "tall", caption: "Curiosidad natural" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579322/Imagen_de_WhatsApp_2025-05-14_a_las_13.26.59_911c0fe9_imhvqz.jpg", size: "small", caption: "Enfoque" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579317/IMG_1927_l5dokl.jpg", size: "wide", caption: "Espacios de luz" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579316/IMG-20250430-WA0022_hhvhqm.jpg", size: "small", caption: "Armonía" },
-    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1774579316/IMG-20250430-WA0021_hxbyjn.jpg", size: "tall", caption: "Crecimiento" }
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762155/DSC01894_oi8yae.jpg", size: "large" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762153/WhatsApp_Image_2026-04-13_at_2.20.42_PM_wu2v6g.jpg", size: "tall" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762154/DSC01871_nd880r.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762154/WhatsApp_Image_2026-04-16_at_3.06.48_PM_4_j70hsi.jpg", size: "wide" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762154/WhatsApp_Image_2026-04-30_at_2.24.00_PM_asvfgq.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762153/WhatsApp_Image_2026-04-16_at_3.06.48_PM_1_sf4xbl.jpg", size: "large" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762153/WhatsApp_Image_2026-03-24_at_3.05.53_PM_1_xcbxoq.jpg", size: "tall" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762153/WhatsApp_Image_2026-04-15_at_3.14.06_PM_gz0say.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762151/WhatsApp_Image_2026-02-20_at_3.08.37_PM_3_c9g5k5.jpg", size: "wide" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762152/WhatsApp_Image_2026-03-20_at_2.17.24_PM_aarzzg.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762153/WhatsApp_Image_2026-03-06_at_2.23.44_PM_fgtbbh.jpg", size: "tall" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762152/WhatsApp_Image_2026-03-20_at_2.17.25_PM_2_yzsdet.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762152/WhatsApp_Image_2026-03-06_at_2.23.44_PM_1_tgyisv.jpg", size: "wide" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762152/WhatsApp_Image_2026-03-06_at_2.23.40_PM_pizna0.jpg", size: "large" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762151/WhatsApp_Image_2026-02-20_at_3.08.37_PM_2_rmvzed.jpg", size: "tall" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762151/WhatsApp_Image_2026-02-20_at_3.08.35_PM_2_jdifis.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762151/WhatsApp_Image_2026-02-20_at_3.08.29_PM_zwryiy.jpg", size: "wide" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762149/Que_quiero_ser_vzp2kk.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762150/WhatsApp_Image_2026-02-06_at_4.28.52_PM_ai79rm.jpg", size: "tall" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762150/WhatsApp_Image_2026-02-20_at_3.08.29_PM_1_quabkr.jpg", size: "large" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762149/WhatsApp_Image_2026-02-06_at_4.28.51_PM_1_ezakij.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762147/Imagen_de_WhatsApp_2025-05-14_a_las_13.26.59_911c0fe9_p14ltn.jpg", size: "wide" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762148/IMG_1927_dvpgd9.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762147/DSC02063_vmaozs.jpg", size: "tall" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762147/Imagen_de_WhatsApp_2025-08-06_a_las_14.22.19_170fbbb5_mpwyed.jpg", size: "large" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762146/Imagen_de_WhatsApp_2025-05-14_a_las_13.26.59_64e2c133_yws2yv.jpg", size: "wide" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762146/Imagen_de_WhatsApp_2024-09-18_a_las_11.36.16_ac2cd7f4_vkolrl.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762144/DSC02033_qzda1j.jpg", size: "tall" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762144/DSC01018_-_copia_h5w1sk.jpg", size: "small" },
+    { src: "https://res.cloudinary.com/dr78wne7t/image/upload/v1784762142/DDR_vtwuhh.jpg", size: "wide" }
   ];
 
   return (
     <div className="py-24 relative overflow-hidden bg-montessori-ivory/20">
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.1, 1],
-          x: [0, 40, 0],
-          y: [0, 20, 0]
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="blob-bg w-[800px] h-[800px] bg-montessori-yellow/10 top-[-20%] right-[-10%]" 
-      />
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.2, 1],
-          x: [0, -30, 0],
-          y: [0, -40, 0]
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="blob-bg w-[600px] h-[600px] bg-montessori-blue/5 bottom-[-10%] left-[-10%]" 
-      />
       
       <div className="container mx-auto px-6">
         <SectionTitle 
-          title="Nuestra Vida Escolar" 
-          subtitle="Un vistazo a los momentos de descubrimiento, trabajo concentrado y alegría que definen el día a día en nuestra escuela."
+          title="Galería" 
+          subtitle="Un vistazo a nuestros ambientes preparados y momentos de aprendizaje." 
         />
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[250px] mb-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[150px] md:auto-rows-[250px] mb-24 relative z-10">
           {photos.map((photo, i) => {
             let gridClass = "";
             if (photo.size === "large") gridClass = "md:col-span-2 md:row-span-2 col-span-2 row-span-2";
@@ -879,33 +694,31 @@ const Galeria = () => {
             return (
               <motion.div 
                 key={i} 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: (i % 5) * 0.1 }}
                 whileHover={{ scale: 0.98 }}
                 className={`relative group overflow-hidden rounded-[30px] shadow-lg ${gridClass}`}
               >
                 <img 
                   src={photo.src.includes('unsplash.com') ? `${photo.src}?auto=format&fit=crop&q=80&w=1200` : photo.src} 
-                  alt={photo.caption} 
+                  alt="Galería La Ribera" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <p className="text-white font-display font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    {photo.caption}
-                  </p>
-                </div>
               </motion.div>
             );
           })}
         </div>
 
-        <div className="bg-montessori-green/5 p-16 rounded-[60px] border-2 border-dashed border-montessori-green/20 text-center relative">
+        <div className="bg-montessori-green/5 p-16 rounded-[60px] border-2 border-dashed border-montessori-green/20 text-center relative max-w-4xl mx-auto">
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg text-4xl">
             ✨
           </div>
-          <blockquote className="italic text-3xl md:text-5xl text-montessori-green font-serif max-w-4xl mx-auto leading-tight opacity-90">
-            “La esencia de la educación Montessori es ayudar al niño en su desarrollo y ayudarlo a adaptarse a cualquier condición que el presente le requiera.”
-          </blockquote>
-          <cite className="block mt-8 text-xl font-bold text-montessori-grey uppercase tracking-widest">— Maria Montessori</cite>
+          <p className="text-2xl text-montessori-grey leading-relaxed font-light">
+            "Creemos que la educación debe formar personas curiosas, críticas y capaces de construir su propio camino."
+          </p>
         </div>
       </div>
     </div>
@@ -914,162 +727,125 @@ const Galeria = () => {
 
 const Contacto = () => (
   <div className="py-24 relative overflow-hidden bg-white/50">
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.1, 1],
-        x: [0, 20, 0],
-        y: [0, 30, 0]
-      }}
-      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      className="blob-bg w-[600px] h-[600px] bg-montessori-green/10 bottom-[-10%] right-[-10%]" 
-    />
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.2, 1],
-        x: [0, -30, 0],
-        y: [0, -20, 0]
-      }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      className="blob-bg w-[500px] h-[500px] bg-montessori-red/5 top-[-5%] left-[-5%]" 
-    />
     
     <div className="container mx-auto px-6">
       <SectionTitle 
-        title="Iniciemos una conversación" 
+        title="Contáctanos" 
         subtitle="Estamos aquí para escucharlos y acompañarlos en la elección del mejor camino educativo para sus hijos." 
       />
       
       <div className="grid lg:grid-cols-2 gap-20 items-start max-w-7xl mx-auto">
-        <div className="space-y-16">
-          <div className="space-y-8">
-            <h3 className="text-5xl text-montessori-green font-display leading-tight">Visítanos y siente la diferencia</h3>
-            <p className="text-2xl leading-relaxed text-montessori-grey font-light">
-              Nada sustituye la experiencia de ver a los niños trabajando en armonía. Agenda una visita personalizada para conocer nuestras instalaciones y resolver todas tus dudas.
-            </p>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 gap-10">
-            <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <motion.div 
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-16 h-16 bg-montessori-green/10 rounded-2xl flex items-center justify-center text-montessori-green"
-              >
-                <Mail size={32} />
-              </motion.div>
-              <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Escríbenos</h4>
-              <p className="text-lg font-medium">hola@riberamontessori.mx</p>
-            </div>
-            <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <motion.div 
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                className="w-16 h-16 bg-montessori-red/10 rounded-2xl flex items-center justify-center text-montessori-red"
-              >
-                <Phone size={32} />
-              </motion.div>
-              <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Llámanos</h4>
-              <p className="text-lg font-medium">+52 (55) 1234 5678</p>
-            </div>
-            <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <motion.div 
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                className="w-16 h-16 bg-montessori-blue/10 rounded-2xl flex items-center justify-center text-montessori-blue"
-              >
-                <Clock size={32} />
-              </motion.div>
-              <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Horario</h4>
-              <p className="text-lg font-medium">Lun - Vie | 8:00 - 15:00</p>
-            </div>
-            <div className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow">
-              <motion.div 
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
-                className="w-16 h-16 bg-montessori-yellow/10 rounded-2xl flex items-center justify-center text-montessori-yellow"
-              >
-                <MapPin size={32} />
-              </motion.div>
-              <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Ubicación</h4>
-              <p className="text-lg font-medium">La Ribera, Ciudad de México</p>
-            </div>
-          </div>
-
-          <div className="relative group overflow-hidden rounded-[50px] shadow-2xl h-[400px]">
-            <div className="absolute inset-0 bg-montessori-green/20 group-hover:bg-transparent transition-colors z-10" />
-            <img 
-              src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=1000" 
-              alt="Mapa" 
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 flex items-center justify-center z-20">
-              <button className="bg-white text-montessori-green px-8 py-4 rounded-full font-bold shadow-xl flex items-center gap-2 hover:scale-105 transition-all">
-                Ver en Google Maps <MapPin size={20} />
-              </button>
-            </div>
-          </div>
+        <div className="grid sm:grid-cols-2 gap-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-20px" }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow flex flex-col items-center text-center"
+          >
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-16 h-16 bg-montessori-green/10 rounded-2xl flex items-center justify-center text-montessori-green mb-2"
+            >
+              <Mail size={32} />
+            </motion.div>
+            <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Escríbenos</h4>
+            <p className="text-lg font-medium break-all w-full">hola@riberamontessori.mx</p>
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-20px" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow flex flex-col items-center text-center"
+          >
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+              className="w-16 h-16 bg-montessori-red/10 rounded-2xl flex items-center justify-center text-montessori-red mb-2"
+            >
+              <Phone size={32} />
+            </motion.div>
+            <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Llámanos</h4>
+            <p className="text-lg font-medium">+52 1 624 237 6028</p>
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-20px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow flex flex-col items-center text-center"
+          >
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+              className="w-16 h-16 bg-montessori-blue/10 rounded-2xl flex items-center justify-center text-montessori-blue mb-2"
+            >
+              <Clock size={32} />
+            </motion.div>
+            <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Horario</h4>
+            <p className="text-lg font-medium">Lun - Vie | 9:00 - 15:00</p>
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-20px" }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-montessori-line hover:shadow-md transition-shadow flex flex-col items-center text-center"
+          >
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+              className="w-16 h-16 bg-montessori-yellow/10 rounded-2xl flex items-center justify-center text-montessori-yellow mb-2"
+            >
+              <MapPin size={32} />
+            </motion.div>
+            <h4 className="font-bold text-montessori-grey uppercase tracking-widest text-sm">Ubicación</h4>
+            <p className="text-lg font-medium">La Ribera, Baja California Sur</p>
+          </motion.div>
         </div>
 
         <div className="relative">
           <div className="absolute -inset-4 bg-montessori-green/5 rounded-[60px] rotate-2 -z-10" />
-          <form className="bg-white p-12 md:p-16 rounded-[50px] shadow-2xl space-y-10 border border-montessori-line relative">
+          <form className="bg-white p-12 md:p-16 rounded-[50px] shadow-2xl space-y-8 border border-montessori-line relative" onSubmit={(e) => e.preventDefault()}>
+            <div className="flex justify-center mb-6">
+              <img src="https://res.cloudinary.com/dr78wne7t/image/upload/v1784762559/Terra_z9yf7n.png" alt="Logo La Ribera" className="h-16 object-contain opacity-90" />
+            </div>
             <div className="space-y-4">
-              <h3 className="text-3xl font-display text-montessori-green">Solicitud de Información</h3>
+              <h3 className="text-3xl font-display text-montessori-green">Envíanos un mensaje</h3>
               <p className="text-montessori-grey opacity-70">Completa el formulario y nos pondremos en contacto contigo a la brevedad.</p>
             </div>
             
-            <div className="grid sm:grid-cols-2 gap-10">
+            <div className="grid sm:grid-cols-2 gap-8">
               <div className="space-y-3">
-                <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Nombre del Padre/Madre</label>
-                <input type="text" className="w-full p-5 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="Ej. Ana García" />
+                <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Nombre completo</label>
+                <input type="text" className="w-full p-4 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="Ej. Ana García" required />
               </div>
               <div className="space-y-3">
-                <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Correo electrónico</label>
-                <input type="email" className="w-full p-5 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="ana@ejemplo.com" />
-              </div>
-            </div>
-            
-            <div className="grid sm:grid-cols-2 gap-10">
-              <div className="space-y-3">
-                <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Teléfono de contacto</label>
-                <input type="tel" className="w-full p-5 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="55 1234 5678" />
-              </div>
-              <div className="space-y-3">
-                <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Edad del alumno(a)</label>
-                <input type="text" className="w-full p-5 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="Ej. 4 años" />
+                <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Teléfono</label>
+                <input type="tel" className="w-full p-4 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="55 1234 5678" required />
               </div>
             </div>
             
             <div className="space-y-3">
-              <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Nivel de interés</label>
-              <div className="relative">
-                <select className="w-full p-5 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl appearance-none cursor-pointer font-medium">
-                  <option>Casa de Niños (3-6 años)</option>
-                  <option>Primaria Baja (6-8 años)</option>
-                </select>
-                <ChevronRight className="absolute right-5 top-1/2 -translate-y-1/2 rotate-90 text-montessori-green" size={20} />
-              </div>
+              <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Correo electrónico</label>
+              <input type="email" className="w-full p-4 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="ana@ejemplo.com" required />
             </div>
             
             <div className="space-y-3">
-              <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">¿Cómo nos conociste?</label>
-              <input type="text" className="w-full p-5 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="Ej. Recomendación, Redes Sociales..." />
-            </div>
-            
-            <div className="space-y-3">
-              <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Mensaje adicional</label>
-              <textarea rows={3} className="w-full p-5 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="Cuéntanos un poco más sobre tu hijo(a)..."></textarea>
+              <label className="text-xs font-bold uppercase tracking-widest text-montessori-grey opacity-60">Mensaje</label>
+              <textarea rows={4} className="w-full p-4 bg-montessori-ivory border-b-2 border-montessori-line focus:border-montessori-green focus:outline-none transition-all rounded-t-xl" placeholder="¿En qué podemos ayudarte?" required></textarea>
             </div>
             
             <motion.button 
+              type="submit"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-montessori-green text-white py-6 rounded-2xl font-bold text-xl hover:shadow-2xl transition-all shadow-xl"
+              className="w-full bg-montessori-green text-white py-5 rounded-2xl font-bold text-lg hover:shadow-2xl transition-all shadow-xl mt-4"
             >
-              Enviar solicitud de admisión
+              Enviar mensaje
             </motion.button>
-            <p className="text-center text-sm text-montessori-grey opacity-50">Al enviar este formulario, aceptas nuestra política de privacidad.</p>
           </form>
         </div>
       </div>
@@ -1089,12 +865,11 @@ export default function App() {
 
   const navItems = [
     { id: 'inicio', label: 'Inicio' },
-    { id: 'ambientes', label: 'Ambientes' },
-    { id: 'metodo', label: 'Método' },
+    { id: 'nosotros', label: 'Nosotros' },
+    { id: 'metodo', label: 'Modelo Educativo' },
     { id: 'niveles', label: 'Niveles' },
-    { id: 'comunidad', label: 'Comunidad' },
     { id: 'galeria', label: 'Galería' },
-    { id: 'contacto', label: 'Admisiones / Contacto' },
+    { id: 'contacto', label: 'Contáctanos' },
   ];
 
   return (
@@ -1107,17 +882,11 @@ export default function App() {
             className="flex items-center gap-4 cursor-pointer group" 
             onClick={() => setPage('inicio')}
           >
-            <motion.div 
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="w-14 h-14 bg-montessori-green rounded-full flex items-center justify-center text-white font-bold text-2xl group-hover:scale-110 transition-transform shadow-md"
-            >
-              M
-            </motion.div>
-            <div>
-              <span className="block font-display font-semibold text-2xl leading-tight text-montessori-green">Montessori</span>
-              <span className="block text-sm tracking-[0.3em] uppercase text-montessori-grey font-bold">La Ribera</span>
-            </div>
+            <img 
+              src="https://res.cloudinary.com/dr78wne7t/image/upload/v1784762558/FullColor_xkeddp.png" 
+              alt="La Ribera School" 
+              className="h-16 object-contain transition-transform group-hover:scale-105"
+            />
           </div>
 
           {/* Desktop Nav */}
@@ -1191,10 +960,9 @@ export default function App() {
             transition={{ duration: 0.3 }}
           >
             {page === 'inicio' && <Home setPage={setPage} />}
-            {page === 'ambientes' && <Ambientes />}
+            {page === 'nosotros' && <Nosotros />}
             {page === 'metodo' && <Metodo />}
             {page === 'niveles' && <Niveles />}
-            {page === 'comunidad' && <Comunidad />}
             {page === 'galeria' && <Galeria />}
             {page === 'contacto' && <Contacto />}
           </motion.div>
@@ -1207,22 +975,16 @@ export default function App() {
           <div className="grid md:grid-cols-4 gap-12">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <motion.div 
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-12 h-12 bg-montessori-green rounded-full flex items-center justify-center text-white font-bold text-xl"
-                >
-                  M
-                </motion.div>
-                <span className="font-display font-semibold text-2xl text-montessori-green">Montessori La Ribera</span>
+                <img 
+                  src="https://res.cloudinary.com/dr78wne7t/image/upload/v1784762603/FullColor_u2jf6p.png" 
+                  alt="La Ribera School" 
+                  className="h-20 object-contain"
+                />
               </div>
               <p className="text-lg text-montessori-grey max-w-md mb-8 leading-relaxed">
-                Una comunidad educativa comprometida con el desarrollo auténtico de cada niño, fomentando autonomía, carácter y responsabilidad.
+                Aprender con sentido, crecer con propósito.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="w-12 h-12 rounded-full bg-montessori-ivory flex items-center justify-center text-montessori-green hover:bg-montessori-green hover:text-white transition-all shadow-sm">
-                  <Instagram size={24} />
-                </a>
                 <a href="#" className="w-12 h-12 rounded-full bg-montessori-ivory flex items-center justify-center text-montessori-green hover:bg-montessori-green hover:text-white transition-all shadow-sm">
                   <Facebook size={24} />
                 </a>
@@ -1253,7 +1015,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={20} className="text-montessori-green shrink-0" />
-                  <span>+52 (000) 000-0000</span>
+                  <span>+52 1 624 237 6028</span>
                 </div>
               </div>
             </div>
@@ -1262,14 +1024,13 @@ export default function App() {
         
         <div className="bg-montessori-ivory py-8 border-t border-montessori-line">
           <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-montessori-grey uppercase tracking-widest">
-            <p>© 2026 Montessori La Ribera. Todos los derechos reservados.</p>
+            <p>© 2026 La Ribera School. Todos los derechos reservados.</p>
             <div className="flex gap-8">
               <a href="#" className="hover:text-montessori-green">Aviso de Privacidad</a>
               <a href="#" className="hover:text-montessori-green">Términos y Condiciones</a>
             </div>
           </div>
         </div>
-        <LittlePeopleBorder />
       </footer>
     </div>
   );
