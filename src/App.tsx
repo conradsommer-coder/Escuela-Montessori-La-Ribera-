@@ -47,7 +47,7 @@ const MontessoriSeparator = () => (
   </div>
 );
 
-const SectionTitle = ({ title, subtitle, centered = true }: { title: string; subtitle?: string; centered?: boolean }) => (
+const SectionTitle = ({ title, subtitle, centered = true }: { title: string; subtitle?: React.ReactNode; centered?: boolean }) => (
   <motion.div 
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ const SectionTitle = ({ title, subtitle, centered = true }: { title: string; sub
     className={`mb-16 ${centered ? 'text-center' : ''}`}
   >
     <h2 className="text-4xl md:text-5xl mb-6 font-display text-brand-knowledge tracking-tight">{title}</h2>
-    {subtitle && <p className="text-xl text-brand-knowledge max-w-3xl mx-auto leading-relaxed font-serif italic opacity-80">{subtitle}</p>}
+    {subtitle && <p className="text-xl text-brand-knowledge max-w-3xl mx-auto leading-relaxed font-serif italic opacity-80 text-balance">{subtitle}</p>}
     <div className={`mt-6 flex gap-2 ${centered ? 'justify-center' : ''}`}>
       {[
         { color: 'bg-brand-foundation', delay: 0 },
@@ -168,7 +168,7 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
             className="text-2xl md:text-4xl text-brand-knowledge mb-12 font-serif italic max-w-3xl mx-auto leading-tight opacity-90"
           >
-            “Aprender con sentido, crecer con propósito.”
+            Aprender con sentido, crecer con propósito.
           </motion.p>
           <motion.div 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
@@ -257,9 +257,9 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
               className="absolute -inset-6 bg-brand-balance/10 rounded-[60px] -z-10"
             />
             <img 
-              src="https://res.cloudinary.com/dr78wne7t/image/upload/v1774579317/IMG_1927_l5dokl.jpg" 
+              src="https://res.cloudinary.com/dr78wne7t/image/upload/v1787000049/WhatsApp_Image_2026-08-07_at_12.48.56_PM_wqdd3v.jpg" 
               alt="Ambiente educativo Montessori" 
-              className="rounded-[50px] shadow-2xl w-full h-[600px] object-cover border-8 border-white"
+              className="rounded-[50px] shadow-2xl w-full h-[600px] object-cover"
               referrerPolicy="no-referrer"
             />
             <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-growth/20 rounded-full blur-3xl -z-10" />
@@ -344,9 +344,9 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
         <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
         
         <div className="relative z-10 max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-7xl mb-10 text-white font-display leading-tight">¿Listos para empezar este viaje?</h2>
+          <h2 className="text-5xl md:text-7xl mb-10 text-white font-display leading-tight">Conoce La Ribera School</h2>
           <p className="text-2xl mb-16 opacity-90 leading-relaxed font-light">
-            Agenda una cita para conocer nuestro modelo educativo y descubrir cómo puede acompañar el desarrollo de tu hijo.
+            Descubre un modelo educativo que acompaña a cada niño a aprender, explorar y crecer a su propio ritmo.
           </p>
           <button 
             onClick={() => setPage('contacto')}
@@ -396,9 +396,9 @@ const Nosotros = () => (
           transition={{ duration: 0.8, delay: 0.2 }}
           className="bg-white p-12 rounded-[40px] shadow-sm border border-brand-balance relative overflow-hidden group hover:shadow-md transition-shadow"
         >
-          <div className="absolute top-0 left-0 w-2 h-full bg-brand-growth group-hover:w-full transition-all duration-500 opacity-10" />
-          <h3 className="text-3xl font-display text-brand-growth mb-6 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-brand-growth/10 flex items-center justify-center font-bold text-xl">V</div>
+          <div className="absolute top-0 left-0 w-2 h-full bg-brand-knowledge group-hover:w-full transition-all duration-500 opacity-10" />
+          <h3 className="text-3xl font-display text-brand-knowledge mb-6 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-brand-knowledge/10 flex items-center justify-center font-bold text-xl">V</div>
             Visión
           </h3>
           <p className="text-xl text-brand-knowledge leading-relaxed font-light">
@@ -457,8 +457,8 @@ const Metodo = () => (
           transition={{ duration: 0.8 }}
           className="lg:col-span-3 bg-white p-12 md:p-16 rounded-[40px] shadow-xl border border-brand-balance flex flex-col justify-center"
         >
-          <p className="text-2xl md:text-3xl leading-relaxed text-brand-knowledge font-serif italic">
-            "La Ribera School integra la metodología Montessori en preescolar y continúa en primaria con una propuesta educativa centrada en el aprendizaje con propósito, el desarrollo del pensamiento crítico, la autonomía y la formación del carácter."
+          <p className="text-2xl md:text-3xl leading-relaxed text-brand-knowledge">
+            La Ribera School integra la metodología Montessori en preescolar y continúa en primaria con una propuesta educativa centrada en el aprendizaje con propósito, el desarrollo del pensamiento crítico, la autonomía y la formación del carácter.
           </p>
           <div className="mt-8 h-1 w-24 bg-brand-balance rounded-full" />
           <p className="mt-8 text-xl text-brand-knowledge leading-relaxed">
@@ -473,7 +473,7 @@ const Metodo = () => (
           className="lg:col-span-2 relative rounded-[40px] overflow-hidden shadow-xl group"
         >
           <img 
-            src="https://res.cloudinary.com/dr78wne7t/image/upload/v1774579322/Imagen_de_WhatsApp_2025-05-14_a_las_13.26.59_911c0fe9_imhvqz.jpg" 
+            src="https://res.cloudinary.com/dr78wne7t/image/upload/v1787000049/FOTO_pbbs4g.png" 
             alt="Niño trabajando" 
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             referrerPolicy="no-referrer"
@@ -506,7 +506,7 @@ const Metodo = () => (
           transition={{ duration: 0.8, delay: 0.2 }}
           className="bg-white p-12 rounded-[40px] border border-brand-balance shadow-lg flex flex-col"
         >
-          <h3 className="text-3xl md:text-4xl mb-6 text-brand-growth font-display">Filosofía Montessori</h3>
+          <h3 className="text-3xl md:text-4xl mb-6 text-brand-knowledge font-display">Filosofía Montessori</h3>
           <p className="text-xl mb-8 leading-relaxed text-brand-knowledge flex-grow font-light">
             Es un enfoque educativo donde los niños aprenden de forma activa, eligiendo actividades dentro de un ambiente preparado que respeta su etapa de desarrollo y promueve la autonomía desde los primeros años.
           </p>
@@ -554,8 +554,8 @@ const Niveles = () => (
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -left-4 top-0 w-2 bg-brand-knowledge rounded-full" 
               />
-              <p className="text-xl leading-relaxed text-brand-knowledge pl-8 italic font-serif opacity-80">
-                "El ambiente preparado favorece la elección con propósito, la independencia progresiva y los primeros pasos en la responsabilidad social."
+              <p className="text-xl leading-relaxed text-brand-knowledge pl-8 opacity-80">
+                El ambiente preparado favorece la elección con propósito, la independencia progresiva y los primeros pasos en la responsabilidad social.
               </p>
             </div>
           </div>
@@ -569,9 +569,9 @@ const Niveles = () => (
           >
             <div className="absolute -inset-4 bg-brand-knowledge/5 rounded-[60px] rotate-3" />
             <img 
-              src="https://res.cloudinary.com/dr78wne7t/image/upload/v1774579342/DSC01018_tcq2qj.jpg" 
-              alt="Niños trabajando" 
-              className="relative rounded-[50px] shadow-2xl w-full h-[550px] object-cover border-8 border-white"
+              src="https://res.cloudinary.com/dr78wne7t/image/upload/v1787000049/foto_3_v0us5x.png" 
+              alt="Casa de Niños" 
+              className="relative rounded-[50px] shadow-2xl w-full h-[550px] object-cover"
               referrerPolicy="no-referrer"
             />
           </motion.div>
@@ -592,9 +592,9 @@ const Niveles = () => (
           >
             <div className="absolute -inset-4 bg-brand-growth/5 rounded-[60px] -rotate-3" />
             <img 
-              src="https://res.cloudinary.com/dr78wne7t/image/upload/v1774579316/IMG-20250430-WA0020_atgcpk.jpg" 
+              src="https://res.cloudinary.com/dr78wne7t/image/upload/v1787000049/foto_2_lhyohi.png" 
               alt="Primaria" 
-              className="relative rounded-[50px] shadow-2xl w-full h-[550px] object-cover border-8 border-white"
+              className="relative rounded-[50px] shadow-2xl w-full h-[550px] object-cover"
               referrerPolicy="no-referrer"
             />
           </motion.div>
@@ -630,8 +630,8 @@ const Niveles = () => (
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                 className="absolute -left-4 top-0 w-2 bg-brand-growth rounded-full" 
               />
-              <p className="text-xl leading-relaxed text-brand-knowledge pl-8 italic font-serif opacity-80">
-                "El aprendizaje con propósito fortalece la autonomía, la capacidad de reflexión, la resolución de problemas y el compromiso con los demás, preparando a los alumnos para aprender con independencia y actuar con responsabilidad."
+              <p className="text-xl leading-relaxed text-brand-knowledge pl-8 opacity-80">
+                El aprendizaje con propósito fortalece la autonomía, la capacidad de reflexión, la resolución de problemas y el compromiso con los demás, preparando a los alumnos para aprender con independencia y actuar con responsabilidad.
               </p>
             </div>
           </div>
@@ -731,7 +731,7 @@ const Contacto = () => (
     <div className="container mx-auto px-6">
       <SectionTitle 
         title="Contáctanos" 
-        subtitle="Estamos aquí para escucharlos y acompañarlos en la elección del mejor camino educativo para sus hijos." 
+        subtitle={<>Estamos aquí para escucharlos y acompañarlos en la elección del mejor camino educativo para sus&nbsp;hijos.</>} 
       />
       
       <div className="grid lg:grid-cols-2 gap-20 items-start max-w-7xl mx-auto">
@@ -751,7 +751,7 @@ const Contacto = () => (
               <Mail size={32} />
             </motion.div>
             <h4 className="font-bold text-brand-knowledge uppercase tracking-widest text-sm">Escríbenos</h4>
-            <p className="text-lg font-medium break-all w-full">hola@riberamontessori.mx</p>
+            <a href="mailto:education@riberamontessori.com" className="text-[15px] xl:text-lg lg:text-base font-medium whitespace-nowrap overflow-wrap-normal hover:text-brand-foundation transition-colors">education@riberamontessori.com</a>
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -785,7 +785,7 @@ const Contacto = () => (
               <Clock size={32} />
             </motion.div>
             <h4 className="font-bold text-brand-knowledge uppercase tracking-widest text-sm">Horario</h4>
-            <p className="text-lg font-medium">Lun - Vie | 9:00 - 15:00</p>
+            <p className="text-base sm:text-sm lg:text-base xl:text-lg font-medium whitespace-nowrap">Lun&nbsp;-&nbsp;Vie | 9:00&nbsp;-&nbsp;15:00</p>
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -1000,7 +1000,7 @@ export default function App() {
                   className="h-24 object-contain brightness-0 invert origin-left"
                 />
                 <p className="text-xl md:text-2xl text-brand-light font-serif italic max-w-md leading-relaxed opacity-90">
-                  "Aprender con sentido,<br/>crecer con propósito."
+                  Aprender con sentido,<br/>crecer con propósito.
                 </p>
               </div>
               <div className="flex gap-4 mt-8">
@@ -1053,12 +1053,12 @@ export default function App() {
                   </div>
                   <span className="mt-1.5 opacity-90">La Ribera, Baja California Sur</span>
                 </motion.div>
-                <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4 group">
+                <motion.a href="mailto:education@riberamontessori.com" whileHover={{ x: 5 }} className="flex items-center gap-4 group hover:text-brand-foundation transition-colors whitespace-nowrap overflow-wrap-normal">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-brand-foundation transition-colors">
                     <Mail size={20} />
                   </div>
-                  <span className="opacity-90">hola@riberamontessori.mx</span>
-                </motion.div>
+                  <span className="opacity-90 text-[15px] lg:text-base xl:text-lg">education@riberamontessori.com</span>
+                </motion.a>
                 <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4 group">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-brand-foundation transition-colors">
                     <Phone size={20} />
