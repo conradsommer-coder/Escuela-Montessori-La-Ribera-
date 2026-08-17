@@ -741,7 +741,7 @@ const Contacto = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20px" }}
             transition={{ duration: 0.6 }}
-            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
+            className="space-y-4 p-4 sm:p-6 lg:p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
           >
             <motion.div 
               animate={{ scale: [1, 1.1, 1] }}
@@ -751,14 +751,14 @@ const Contacto = () => (
               <Mail size={32} />
             </motion.div>
             <h4 className="font-bold text-brand-knowledge uppercase tracking-widest text-sm">Escríbenos</h4>
-            <a href="mailto:education@riberamontessori.com" className="text-[15px] xl:text-lg lg:text-base font-medium whitespace-nowrap overflow-wrap-normal hover:text-brand-foundation transition-colors">education@riberamontessori.com</a>
+            <a href="mailto:education@riberamontessori.com" className="text-[13px] sm:text-[14px] lg:text-base font-medium hover:text-brand-foundation transition-colors">education@riberamontessori.com</a>
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
+            className="space-y-4 p-4 sm:p-6 lg:p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
           >
             <motion.div 
               animate={{ scale: [1, 1.1, 1] }}
@@ -768,14 +768,14 @@ const Contacto = () => (
               <Phone size={32} />
             </motion.div>
             <h4 className="font-bold text-brand-knowledge uppercase tracking-widest text-sm">Llámanos</h4>
-            <p className="text-lg font-medium">+52 1 624 237 6028</p>
+            <p className="text-base sm:text-[15px] lg:text-lg font-medium">+52 1 624 237 6028</p>
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
+            className="space-y-4 p-4 sm:p-6 lg:p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
           >
             <motion.div 
               animate={{ scale: [1, 1.1, 1] }}
@@ -785,14 +785,14 @@ const Contacto = () => (
               <Clock size={32} />
             </motion.div>
             <h4 className="font-bold text-brand-knowledge uppercase tracking-widest text-sm">Horario</h4>
-            <p className="text-base sm:text-sm lg:text-base xl:text-lg font-medium whitespace-nowrap">Lun&nbsp;-&nbsp;Vie | 9:00&nbsp;-&nbsp;15:00</p>
+            <p className="text-[14px] sm:text-[13px] lg:text-base font-medium whitespace-nowrap">Lun&nbsp;-&nbsp;Vie | 9:00&nbsp;-&nbsp;15:00</p>
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20px" }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-4 p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
+            className="space-y-4 p-4 sm:p-6 lg:p-8 bg-white rounded-[40px] shadow-sm border border-brand-balance hover:shadow-md transition-shadow flex flex-col items-center text-center"
           >
             <motion.div 
               animate={{ scale: [1, 1.1, 1] }}
@@ -802,7 +802,7 @@ const Contacto = () => (
               <MapPin size={32} />
             </motion.div>
             <h4 className="font-bold text-brand-knowledge uppercase tracking-widest text-sm">Ubicación</h4>
-            <p className="text-lg font-medium">La Ribera, Baja California Sur</p>
+            <p className="text-[15px] sm:text-[14px] lg:text-lg font-medium leading-tight">La Ribera, B.C.S.</p>
           </motion.div>
         </div>
 
@@ -1053,11 +1053,11 @@ export default function App() {
                   </div>
                   <span className="mt-1.5 opacity-90">La Ribera, Baja California Sur</span>
                 </motion.div>
-                <motion.a href="mailto:education@riberamontessori.com" whileHover={{ x: 5 }} className="flex items-center gap-4 group hover:text-brand-foundation transition-colors whitespace-nowrap overflow-wrap-normal">
+                <motion.a href="mailto:education@riberamontessori.com" whileHover={{ x: 5 }} className="flex items-center gap-4 group hover:text-brand-foundation transition-colors overflow-hidden">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-brand-foundation transition-colors">
                     <Mail size={20} />
                   </div>
-                  <span className="opacity-90 text-[15px] lg:text-base xl:text-lg">education@riberamontessori.com</span>
+                  <span className="opacity-90 text-[13px] sm:text-[14px] lg:text-base truncate">education@riberamontessori.com</span>
                 </motion.a>
                 <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4 group">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-brand-foundation transition-colors">
